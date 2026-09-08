@@ -25,6 +25,7 @@ import sys
 import time
 import unicodedata
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
 try:
     import requests
@@ -71,6 +72,27 @@ LEAGUE_SHORT = {
     "Serie A": "SERIE A",
     "Ligue 1": "LIGUE 1",
 }
+
+LEAGUE_TZ = {
+    "Premier League": "Europe/London",
+    "La Liga": "Europe/Madrid",
+    "Bundesliga": "Europe/Berlin",
+    "Serie A": "Europe/Rome",
+    "Ligue 1": "Europe/Paris",
+}
+
+
+def fixture_utc_datetime(f):
+    """Returns the correct UTC datetime for a fixture's kickoff, handling
+    both already-normalized (time_is_utc) and raw venue-local times."""
+    if not f.get("confirmed_time"):
+        return None
+    naive = datetime.strptime(f["date"] + " " + f["time"], "%Y-%m-%d %H:%M")
+    if f.get("time_is_utc"):
+        return naive.replace(tzinfo=ZoneInfo("UTC"))
+    tz = ZoneInfo(LEAGUE_TZ.get(f["league"], "UTC"))
+    local_dt = naive.replace(tzinfo=tz)
+    return local_dt.astimezone(ZoneInfo("UTC"))
 
 
 def normalize(s):
@@ -170,11 +192,10 @@ def build_ics(fixtures):
         lines.append("DTSTAMP:" + dtstamp)
 
         if f["confirmed_time"]:
-            start = datetime.strptime(f["date"] + " " + f["time"], "%Y-%m-%d %H:%M")
+            start = fixture_utc_datetime(f)
             end = start + timedelta(hours=2, minutes=15)
-            suffix = "Z" if f.get("time_is_utc") else ""
-            lines.append("DTSTART:" + start.strftime("%Y%m%dT%H%M%S") + suffix)
-            lines.append("DTEND:" + end.strftime("%Y%m%dT%H%M%S") + suffix)
+            lines.append("DTSTART:" + start.strftime("%Y%m%dT%H%M%S") + "Z")
+            lines.append("DTEND:" + end.strftime("%Y%m%dT%H%M%S") + "Z")
         else:
             start = datetime.strptime(f["date"], "%Y-%m-%d")
             end = start + timedelta(days=1)
