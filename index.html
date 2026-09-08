@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Big Fixtures — Rivalry Wire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14140f;
+    --paper:#ede7d8;
+    --paper-dim:#e2dbc9;
+    --ink:#1b1b16;
+    --ink-dim:#5c5847;
+    --line:#4a4a3e;
+    --line-soft:rgba(237,231,216,0.14);
+    --gold:#c9a227;
+    --c-pl:#5b3a8e;
+    --c-laliga:#b23a2e;
+    --c-bundesliga:#c98a12;
+    --c-seriea:#1b5aa8;
+    --c-ligue1:#127a6e;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--paper);
+    font-family:'IBM Plex Sans',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px;}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    padding:56px 0 32px;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .kicker{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.02em;
+    color:var(--gold);
+    margin:0 0 14px;
+  }
+  h1{
+    font-family:'Big Shoulders Display',sans-serif;
+    font-weight:900;
+    font-size:clamp(44px,9vw,84px);
+    line-height:0.92;
+    margin:0 0 18px;
+    letter-spacing:-0.01em;
+  }
+  h1 em{
+    font-style:normal;
+    color:var(--gold);
+  }
+  .lede{
+    font-size:16px;
+    line-height:1.55;
+    max-width:52ch;
+    color:#cfc9b8;
+    margin:0 0 30px;
+  }
+  .lede b{color:var(--paper);font-weight:600;}
+
+  .actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;}
+  button.primary, a.primary{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    background:var(--gold);
+    color:#1b1600;
+    border:none;
+    padding:13px 20px;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  button.primary:hover, a.primary:hover{background:#e0b62e;}
+  button.secondary{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-weight:500;
+    font-size:14.5px;
+    background:transparent;
+    color:var(--paper);
+    border:1px solid var(--line);
+    padding:12px 19px;
+    cursor:pointer;
+  }
+  button.secondary:hover{border-color:var(--paper);}
+  .hint{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:#8b876f;
+    margin-top:10px;
+    line-height:1.5;
+  }
+
+  /* ---------- FILTERS ---------- */
+  .filters{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    padding:22px 0;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .chip{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.01em;
+    padding:8px 13px;
+    border:1px solid var(--line);
+    background:transparent;
+    color:#cfc9b8;
+    cursor:pointer;
+    user-select:none;
+  }
+  .chip[data-active="true"]{
+    background:var(--paper);
+    color:var(--ink);
+    border-color:var(--paper);
+  }
+  .chip .dot{
+    display:inline-block;
+    width:7px;height:7px;
+    border-radius:50%;
+    margin-right:6px;
+    position:relative;
+    top:-1px;
+  }
+
+  /* ---------- WIRE LIST ---------- */
+  .month-head{
+    font-family:'Big Shoulders Display',sans-serif;
+    font-weight:700;
+    font-size:22px;
+    letter-spacing:0.02em;
+    color:#8b876f;
+    padding:26px 0 8px;
+  }
+  .row{
+    display:grid;
+    grid-template-columns:64px 4px 1fr auto;
+    gap:16px;
+    align-items:center;
+    padding:16px 0;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .date-block{
+    font-family:'IBM Plex Mono',monospace;
+    line-height:1.15;
+    color:#cfc9b8;
+  }
+  .date-block .dow{font-size:11px;color:#8b876f;display:block;}
+  .date-block .dnum{font-size:24px;font-weight:500;color:var(--paper);}
+  .stripe{align-self:stretch;}
+  .match .teams{
+    font-family:'Big Shoulders Display',sans-serif;
+    font-weight:700;
+    font-size:clamp(19px,4vw,25px);
+    line-height:1.05;
+    letter-spacing:0.005em;
+  }
+  .match .teams .vs{
+    color:#8b876f;
+    font-weight:500;
+    font-size:0.6em;
+    margin:0 8px;
+    vertical-align:2px;
+  }
+  .match .meta{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:#8b876f;
+    margin-top:4px;
+    letter-spacing:0.01em;
+  }
+  .status{
+    text-align:right;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    white-space:nowrap;
+  }
+  .status .score{
+    font-size:18px;
+    font-weight:500;
+    color:var(--paper);
+    display:block;
+  }
+  .status .tag{color:#8b876f;}
+  .status .tbc{color:var(--gold);}
+  .status .kickoff{color:var(--paper);font-size:14px;}
+
+  footer{
+    padding:40px 0 70px;
+    color:#6f6b58;
+    font-size:12.5px;
+    line-height:1.7;
+    border-top:1px solid var(--line-soft);
+    margin-top:20px;
+  }
+  footer a{color:var(--gold);}
+
+  @media (max-width:520px){
+    .row{grid-template-columns:46px 4px 1fr;}
+    .status{grid-column:1/4;text-align:left;padding-left:66px;margin-top:-6px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <p class="kicker">// FIVE LEAGUES · ONE WIRE</p>
+    <h1>Big<br>Fixtures<em>.</em></h1>
+    <p class="lede">Every meeting between the clubs that actually matter to you this season — <b>Arsenal, Chelsea, Spurs, Man Utd, Man City &amp; Liverpool</b> in the Premier League, <b>Real Madrid, Barcelona &amp; Atlético</b> in La Liga, <b>Bayern &amp; Dortmund</b> in the Bundesliga, <b>Como, Milan, Inter, Juventus &amp; Roma</b> in Serie A, and <b>PSG, Monaco &amp; Lyon</b> in Ligue 1 — pulled into one wire.</p>
+    <div class="actions">
+      <button class="primary" id="downloadIcs">Download calendar file (.ics)</button>
+      <button class="secondary" id="expandAll">Show scores for played matches</button>
+    </div>
+    <p class="hint">On iPhone: open the downloaded file &rarr; "Add All" in Calendar. On Mac: double-click it &rarr; choose Calendar. &middot; Kickoff times are shown in each match's local time — iOS will convert automatically to your device's time zone.</p>
+  </header>
+
+  <div class="filters" id="filters"></div>
+
+  <main id="wire"></main>
+
+  <footer>
+    64 fixtures tracked · built from each league's official 2026/27 release. Rounds still marked "time TBC" haven't had kickoff times confirmed by the league yet (usually locked in 3–5 weeks out) — those go into your calendar as all-day placeholders so nothing's lost, and you can re-download closer to the date once times land.
+  </footer>
+
+</div>
+
+<script id="fixture-data" type="application/json">[{"league": "Ligue 1", "round": 3, "date": "2026-09-04", "time": "19:05", "venue": "Parc des Princes", "home": "Paris Saint-Germain", "away": "AS Monaco", "result": "1 - 2", "confirmed_time": true}, {"league": "Premier League", "round": 3, "date": "2026-09-06", "time": "16:30", "venue": "Emirates Stadium", "home": "Arsenal", "away": "Chelsea", "result": "2 - 1", "confirmed_time": true}, {"league": "Serie A", "round": 3, "date": "2026-09-06", "time": "18:45", "venue": "Allianz Stadium", "home": "Juventus", "away": "Milan", "result": "1 - 1", "confirmed_time": true}, {"league": "Premier League", "round": 4, "date": "2026-09-13", "time": "16:30", "venue": "Old Trafford", "home": "Man Utd", "away": "Man City", "result": null, "confirmed_time": true}, {"league": "Serie A", "round": 5, "date": "2026-09-19", "time": "16:00", "venue": "Olimpico", "home": "Roma", "away": "Internazionale", "result": null, "confirmed_time": true}, {"league": "La Liga", "round": 7, "date": "2026-09-20", "time": "14:15", "venue": "Riyadh Air Metropolitano", "home": "Atlético de Madrid", "away": "Real Madrid", "result": null, "confirmed_time": true}, {"league": "Serie A", "round": 6, "date": "2026-10-10", "time": null, "venue": "Giuseppe Sinigaglia", "home": "Como", "away": "Roma", "result": null, "confirmed_time": false}, {"league": "Premier League", "round": 6, "date": "2026-10-10", "time": "17:30", "venue": "Old Trafford", "home": "Man Utd", "away": "Spurs", "result": null, "confirmed_time": true}, {"league": "Premier League", "round": 6, "date": "2026-10-11", "time": "16:30", "venue": "Anfield", "home": "Liverpool", "away": "Man City", "result": null, "confirmed_time": true}, {"league": "Premier League", "round": 8, "date": "2026-10-24", "time": "17:30", "venue": "Stamford Bridge", "home": "Chelsea", "away": "Spurs", "result": null, "confirmed_time": true}, {"league": "Ligue 1", "round": 8, "date": "2026-10-25", "time": "19:45", "venue": "Parc des Princes", "home": "Paris Saint-Germain", "away": "Olympique Lyonnais", "result": null, "confirmed_time": true}, {"league": "La Liga", "round": 10, "date": "2026-10-25", "time": "20:00", "venue": "Spotify Camp Nou", "home": "FC Barcelona", "away": "Real Madrid", "result": null, "confirmed_time": true}, {"league": "Serie A", "round": 10, "date": "2026-10-31", "time": null, "venue": "Giuseppe Meazza", "home": "Milan", "away": "Internazionale", "result": null, "confirmed_time": false}, {"league": "Premier League", "round": 9, "date": "2026-10-31", "time": "12:30", "venue": "Stamford Bridge", "home": "Chelsea", "away": "Man Utd", "result": null, "confirmed_time": true}, {"league": "Bundesliga", "round": 8, "date": "2026-10-31", "time": "14:30", "venue": "Allianz Arena", "home": "FC Bayern München", "away": "Borussia Dortmund", "result": null, "confirmed_time": true}, {"league": "Premier League", "round": 9, "date": "2026-11-01", "time": "16:30", "venue": "Anfield", "home": "Liverpool", "away": "Arsenal", "result": null, "confirmed_time": true}, {"league": "Serie A", "round": 11, "date": "2026-11-07", "time": null, "venue": "Giuseppe Meazza", "home": "Internazionale", "away": "Como", "result": null, "confirmed_time": false}, {"league": "La Liga", "round": 12, "date": "2026-11-08", "time": null, "venue": "Riyadh Air Metropolitano", "home": "Atlético de Madrid", "away": "FC Barcelona", "result": null, "confirmed_time": false}, {"league": "Premier League", "round": 11, "date": "2026-11-21", "time": "15:00", "venue": "Anfield", "home": "Liverpool", "away": "Man Utd", "result": null, "confirmed_time": true}, {"league": "Ligue 1", "round": 12, "date": "2026-11-27", "time": "23:00", "venue": "Parc Olympique Lyonnais", "home": "Olympique Lyonnais", "away": "AS Monaco", "result": null, "confirmed_time": true}, {"league": "Serie A", "round": 13, "date": "2026-11-28", "time": null, "venue": "Giuseppe Sinigaglia", "home": "Como", "away": "Juventus", "result": null, "confirmed_time": false}, {"league": "Premier League", "round": 12, "date": "2026-11-28", "time": "15:00", "venue": "Emirates Stadium", "home": "Arsenal", "away": "Man City", "result": null, "confirmed_time": true}, {"league": "Premier League", "round": 14, "date": "2026-12-05", "time": "15:00", "venue": "Stamford Bridge", "home": "Chelsea", "away": "Liverpool", "result": null, "confirmed_time": true}, {"league": "Premier League", "round": 14, "date": "2026-12-05", "time": "15:00", "venue": "Tottenham Hotspur Stadium", "home": "Spurs", "away": "Arsenal", "result": null, "confirmed_time": true}, {"league": "Premier League", "round": 15, "date": "2026-12-12", "time": "15:00", "venue": "Etihad Stadium", "home": "Man City", "away": "Chelsea", "result": null, "confirmed_time": true}, {"league": "Serie A", "round": 16, "date": "2026-12-19", "time": null, "venue": "Olimpico", "home": "Roma", "away": "Juventus", "result": null, "confirmed_time": false}, {"league": "Serie A", "round": 16, "date": "2026-12-19", "time": null, "venue": "Giuseppe Meazza", "home": "Milan", "away": "Como", "result": null, "confirmed_time": false}, {"league": "Premier League", "round": 16, "date": "2026-12-19", "time": "15:00", "venue": "Emirates Stadium", "home": "Arsenal", "away": "Man Utd", "result": null, "confirmed_time": true}, {"league": "Premier League", "round": 16, "date": "2026-12-19", "time": "15:00", "venue": "Anfield", "home": "Liverpool", "away": "Spurs", "result": null, "confirmed_time": true}, {"league": "Premier League", "round": 19, "date": "2027-01-02", "time": "15:00", "venue": "Etihad Stadium", "home": "Man City", "away": "Spurs", "result": null, "confirmed_time": true}, {"league": "Serie A", "round": 19, "date": "2027-01-09", "time": null, "venue": "Giuseppe Meazza", "home": "Internazionale", "away": "Juventus", "result": null, "confirmed_time": false}, {"league": "Serie A", "round": 19, "date": "2027-01-09", "time": null, "venue": "Olimpico", "home": "Roma", "away": "Milan", "result": null, "confirmed_time": false}, {"league": "Premier League", "round": 22, "date": "2027-01-23", "time": "15:00", "venue": "Old Trafford", "home": "Man Utd", "away": "Liverpool", "result": null, "confirmed_time": true}, {"league": "Ligue 1", "round": 18, "date": "2027-01-29", "time": "23:00", "venue": "Stade Louis II", "home": "AS Monaco", "away": "Paris Saint-Germain", "result": null, "confirmed_time": true}, {"league": "Serie A", "round": 22, "date": "2027-01-30", "time": null, "venue": "Giuseppe Meazza", "home": "Milan", "away": "Juventus", "result": null, "confirmed_time": false}, {"league": "Premier League", "round": 23, "date": "2027-01-30", "time": "15:00", "venue": "Etihad Stadium", "home": "Man City", "away": "Arsenal", "result": null, "confirmed_time": true}, {"league": "Premier League", "round": 24, "date": "2027-02-06", "time": "15:00", "venue": "Old Trafford", "home": "Man Utd", "away": "Chelsea", "result": null, "confirmed_time": true}, {"league": "Premier League", "round": 24, "date": "2027-02-06", "time": "15:00", "venue": "Emirates Stadium", "home": "Arsenal", "away": "Liverpool", "result": null, "confirmed_time": true}, {"league": "La Liga", "round": 23, "date": "2027-02-07", "time": null, "venue": "Spotify Camp Nou", "home": "FC Barcelona", "away": "Atlético de Madrid", "result": null, "confirmed_time": false}, {"league": "Premier League", "round": 25, "date": "2027-02-10", "time": "20:00", "venue": "Tottenham Hotspur Stadium", "home": "Spurs", "away": "Man City", "result": null, "confirmed_time": true}, {"league": "Serie A", "round": 24, "date": "2027-02-13", "time": null, "venue": "Giuseppe Meazza", "home": "Internazionale", "away": "Milan", "result": null, "confirmed_time": false}, {"league": "Serie A", "round": 26, "date": "2027-02-27", "time": null, "venue": "Giuseppe Sinigaglia", "home": "Como", "away": "Milan", "result": null, "confirmed_time": false}, {"league": "Premier League", "round": 27, "date": "2027-02-27", "time": "15:00", "venue": "Old Trafford", "home": "Man Utd", "away": "Arsenal", "result": null, "confirmed_time": true}, {"league": "Premier League", "round": 27, "date": "2027-02-27", "time": "15:00", "venue": "Tottenham Hotspur Stadium", "home": "Spurs", "away": "Liverpool", "result": null, "confirmed_time": true}, {"league": "Ligue 1", "round": 23, "date": "2027-03-05", "time": "23:00", "venue": "Stade Louis II", "home": "AS Monaco", "away": "Olympique Lyonnais", "result": null, "confirmed_time": true}, {"league": "Serie A", "round": 27, "date": "2027-03-06", "time": null, "venue": "Allianz Stadium", "home": "Juventus", "away": "Roma", "result": null, "confirmed_time": false}, {"league": "Bundesliga", "round": 25, "date": "2027-03-06", "time": "14:30", "venue": "SIGNAL IDUNA PARK", "home": "Borussia Dortmund", "away": "FC Bayern München", "result": null, "confirmed_time": true}, {"league": "Premier League", "round": 29, "date": "2027-03-13", "time": "15:00", "venue": "Stamford Bridge", "home": "Chelsea", "away": "Arsenal", "result": null, "confirmed_time": true}, {"league": "Serie A", "round": 29, "date": "2027-03-20", "time": null, "venue": "Allianz Stadium", "home": "Juventus", "away": "Como", "result": null, "confirmed_time": false}, {"league": "Premier League", "round": 30, "date": "2027-03-20", "time": "15:00", "venue": "Etihad Stadium", "home": "Man City", "away": "Man Utd", "result": null, "confirmed_time": true}, {"league": "La Liga", "round": 30, "date": "2027-04-04", "time": null, "venue": "Bernabéu", "home": "Real Madrid", "away": "Atlético de Madrid", "result": null, "confirmed_time": false}, {"league": "Serie A", "round": 31, "date": "2027-04-10", "time": null, "venue": "Giuseppe Meazza", "home": "Internazionale", "away": "Roma", "result": null, "confirmed_time": false}, {"league": "Premier League", "round": 33, "date": "2027-04-24", "time": "15:00", "venue": "Stamford Bridge", "home": "Chelsea", "away": "Man City", "result": null, "confirmed_time": true}, {"league": "Serie A", "round": 34, "date": "2027-05-01", "time": null, "venue": "Giuseppe Sinigaglia", "home": "Como", "away": "Internazionale", "result": null, "confirmed_time": false}, {"league": "Premier League", "round": 34, "date": "2027-05-01", "time": "15:00", "venue": "Anfield", "home": "Liverpool", "away": "Chelsea", "result": null, "confirmed_time": true}, {"league": "Premier League", "round": 34, "date": "2027-05-01", "time": "15:00", "venue": "Emirates Stadium", "home": "Arsenal", "away": "Spurs", "result": null, "confirmed_time": true}, {"league": "Ligue 1", "round": 31, "date": "2027-05-07", "time": "22:00", "venue": "Parc Olympique Lyonnais", "home": "Olympique Lyonnais", "away": "Paris Saint-Germain", "result": null, "confirmed_time": true}, {"league": "Premier League", "round": 35, "date": "2027-05-08", "time": "15:00", "venue": "Etihad Stadium", "home": "Man City", "away": "Liverpool", "result": null, "confirmed_time": true}, {"league": "Premier League", "round": 35, "date": "2027-05-08", "time": "15:00", "venue": "Tottenham Hotspur Stadium", "home": "Spurs", "away": "Chelsea", "result": null, "confirmed_time": true}, {"league": "La Liga", "round": 35, "date": "2027-05-09", "time": null, "venue": "Bernabéu", "home": "Real Madrid", "away": "FC Barcelona", "result": null, "confirmed_time": false}, {"league": "Serie A", "round": 36, "date": "2027-05-15", "time": null, "venue": "Allianz Stadium", "home": "Juventus", "away": "Internazionale", "result": null, "confirmed_time": false}, {"league": "Serie A", "round": 36, "date": "2027-05-15", "time": null, "venue": "Giuseppe Meazza", "home": "Milan", "away": "Roma", "result": null, "confirmed_time": false}, {"league": "Serie A", "round": 37, "date": "2027-05-22", "time": null, "venue": "Olimpico", "home": "Roma", "away": "Como", "result": null, "confirmed_time": false}, {"league": "Premier League", "round": 37, "date": "2027-05-23", "time": "15:00", "venue": "Tottenham Hotspur Stadium", "home": "Spurs", "away": "Man Utd", "result": null, "confirmed_time": true}]</script>
+<script>
+const DATA = JSON.parse(document.getElementById('fixture-data').textContent);
+
+const LEAGUE_COLOR = {
+  "Premier League": "#5b3a8e",
+  "La Liga": "#b23a2e",
+  "Bundesliga": "#c98a12",
+  "Serie A": "#1b5aa8",
+  "Ligue 1": "#127a6e"
+};
+const LEAGUE_SHORT = {
+  "Premier League": "PL",
+  "La Liga": "LIGA",
+  "Bundesliga": "BUND",
+  "Serie A": "SERIE A",
+  "Ligue 1": "LIGUE 1"
+};
+
+let activeLeagues = new Set(Object.keys(LEAGUE_COLOR));
+let showScores = false;
+
+function buildFilters(){
+  const box = document.getElementById('filters');
+  box.innerHTML = '';
+  Object.keys(LEAGUE_COLOR).forEach(lg=>{
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.dataset.active = 'true';
+    chip.innerHTML = `<span class="dot" style="background:${LEAGUE_COLOR[lg]}"></span>${lg} (${DATA.filter(d=>d.league===lg).length})`;
+    chip.addEventListener('click', ()=>{
+      if(activeLeagues.has(lg)){ activeLeagues.delete(lg); chip.dataset.active='false'; }
+      else { activeLeagues.add(lg); chip.dataset.active='true'; }
+      render();
+    });
+    box.appendChild(chip);
+  });
+}
+
+function fmtDow(d){ return d.toLocaleDateString('en-GB',{weekday:'short'}).toUpperCase(); }
+function fmtMonth(d){ return d.toLocaleDateString('en-GB',{month:'long',year:'numeric'}).toUpperCase(); }
+
+function render(){
+  const wire = document.getElementById('wire');
+  wire.innerHTML = '';
+  const filtered = DATA.filter(d=>activeLeagues.has(d.league))
+                       .sort((a,b)=> (a.date+ (a.time||'00:00')).localeCompare(b.date+(b.time||'00:00')));
+  let lastMonth = '';
+  filtered.forEach(f=>{
+    const d = new Date(f.date+'T00:00:00');
+    const monthKey = fmtMonth(d);
+    if(monthKey !== lastMonth){
+      const h = document.createElement('div');
+      h.className='month-head';
+      h.textContent = monthKey;
+      wire.appendChild(h);
+      lastMonth = monthKey;
+    }
+    const row = document.createElement('div');
+    row.className='row';
+    const played = !!f.result;
+    let statusHtml = '';
+    if(played && showScores){
+      statusHtml = `<span class="score">${f.result}</span><span class="tag">FULL TIME</span>`;
+    } else if(played){
+      statusHtml = `<span class="tag">PLAYED</span>`;
+    } else if(!f.confirmed_time){
+      statusHtml = `<span class="tbc">TIME TBC</span>`;
+    } else {
+      statusHtml = `<span class="kickoff">${f.time}</span><span class="tag">LOCAL KICKOFF</span>`;
+    }
+    row.innerHTML = `
+      <div class="date-block"><span class="dow">${fmtDow(d)}</span><span class="dnum">${d.getDate()}</span></div>
+      <div class="stripe" style="background:${LEAGUE_COLOR[f.league]}"></div>
+      <div class="match">
+        <div class="teams">${f.home}<span class="vs">vs</span>${f.away}</div>
+        <div class="meta">${LEAGUE_SHORT[f.league]} · ROUND ${f.round} · ${f.venue.toUpperCase()}</div>
+      </div>
+      <div class="status">${statusHtml}</div>
+    `;
+    wire.appendChild(row);
+  });
+}
+
+document.getElementById('expandAll').addEventListener('click', (e)=>{
+  showScores = !showScores;
+  e.target.textContent = showScores ? 'Hide scores' : 'Show scores for played matches';
+  render();
+});
+
+buildFilters();
+render();
+
+/* ---------------- ICS GENERATION ---------------- */
+function pad(n){ return n.toString().padStart(2,'0'); }
+
+function icsEscape(s){
+  return s.replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n');
+}
+
+function buildIcs(fixtures){
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Big Fixtures//Rivalry Wire//EN',
+    'CALSCALE:GREGORIAN'
+  ];
+  const now = new Date();
+  const dtstamp = now.getUTCFullYear()+pad(now.getUTCMonth()+1)+pad(now.getUTCDate())+'T'+pad(now.getUTCHours())+pad(now.getUTCMinutes())+pad(now.getUTCSeconds())+'Z';
+
+  fixtures.forEach((f,i)=>{
+    const uid = `bigfixtures-${f.league}-${f.round}-${f.home}-${f.away}`.replace(/[^a-zA-Z0-9]+/g,'-').toLowerCase()+'@bigfixtures';
+    const summary = icsEscape(`${f.home} vs ${f.away} (${LEAGUE_SHORT[f.league]})`);
+    const desc = icsEscape(`${f.league} — Round ${f.round}${f.confirmed_time ? '' : '. Kickoff time not yet confirmed by the league.'}`);
+    const loc = icsEscape(f.venue);
+    const dateCompact = f.date.replace(/-/g,'');
+
+    lines.push('BEGIN:VEVENT');
+    lines.push('UID:'+uid);
+    lines.push('DTSTAMP:'+dtstamp);
+
+    if(f.confirmed_time){
+      const [hh,mm] = f.time.split(':');
+      const startCompact = dateCompact+'T'+hh+mm+'00';
+      // rough 2h15m fixture duration
+      const startDate = new Date(f.date+'T'+f.time+':00');
+      const endDate = new Date(startDate.getTime() + (2*60+15)*60000);
+      const endCompact = endDate.getFullYear()+pad(endDate.getMonth()+1)+pad(endDate.getDate())+'T'+pad(endDate.getHours())+pad(endDate.getMinutes())+'00';
+      lines.push('DTSTART:'+startCompact);
+      lines.push('DTEND:'+endCompact);
+    } else {
+      const endD = new Date(f.date+'T00:00:00');
+      endD.setDate(endD.getDate()+1);
+      const endCompact = endD.getFullYear()+pad(endD.getMonth()+1)+pad(endD.getDate());
+      lines.push('DTSTART;VALUE=DATE:'+dateCompact);
+      lines.push('DTEND;VALUE=DATE:'+endCompact);
+    }
+
+    lines.push('SUMMARY:'+summary);
+    lines.push('LOCATION:'+loc);
+    lines.push('DESCRIPTION:'+desc);
+    lines.push('END:VEVENT');
+  });
+
+  lines.push('END:VCALENDAR');
+  return lines.join('\r\n');
+}
+
+document.getElementById('downloadIcs').addEventListener('click', ()=>{
+  const ics = buildIcs(DATA);
+  const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'big-fixtures.ics';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+</script>
+</body>
+</html>
