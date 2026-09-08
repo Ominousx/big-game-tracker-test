@@ -250,7 +250,7 @@
       <button class="primary" id="downloadIcs">Download calendar file (.ics)</button>
       <button class="secondary" id="expandAll">Show scores for played matches</button>
     </div>
-    <p class="hint">On iPhone: open the downloaded file &rarr; "Add All" in Calendar. On Mac: double-click it &rarr; choose Calendar. &middot; Kickoff times are shown in each match's local time — iOS will convert automatically to your device's time zone.</p>
+    <p class="hint">On iPhone: open the downloaded file &rarr; "Add All" in Calendar. On Mac: double-click it &rarr; choose Calendar. &middot; Kickoff times on this page are shown in IST; the downloaded calendar file stores the correct UTC time and will display in whatever time zone your device is set to.</p>
   </header>
 
   <div class="filters" id="filters"></div>
@@ -369,8 +369,8 @@ function render(){
     } else if(!f.confirmed_time){
       statusHtml = `<span class="tbc">TIME TBC</span>`;
     } else {
-      const localTime = utcDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
-      statusHtml = `<span class="kickoff">${localTime}</span><span class="tag">YOUR TIME</span>`;
+      const localTime = utcDate.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' });
+      statusHtml = `<span class="kickoff">${localTime}</span><span class="tag">IST</span>`;
     }
     row.innerHTML = `
       <div class="date-block"><span class="dow">${fmtDow(d)}</span><span class="dnum">${d.getDate()}</span></div>
