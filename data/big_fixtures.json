@@ -14,12 +14,13 @@
   "league": "Premier League",
   "round": 3,
   "date": "2026-09-06",
-  "time": "16:30",
+  "time": "15:30",
   "venue": "Emirates Stadium",
   "home": "Arsenal",
   "away": "Chelsea",
   "result": "2 - 1",
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
@@ -36,12 +37,13 @@
   "league": "Premier League",
   "round": 4,
   "date": "2026-09-13",
-  "time": "16:30",
+  "time": "15:30",
   "venue": "Old Trafford",
   "home": "Man Utd",
   "away": "Man City",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
@@ -68,46 +70,50 @@
  {
   "league": "Serie A",
   "round": 6,
-  "date": "2026-10-10",
-  "time": null,
+  "date": "2026-10-11",
+  "time": "10:30",
   "venue": "Giuseppe Sinigaglia",
   "home": "Como",
   "away": "Roma",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
   "round": 6,
   "date": "2026-10-10",
-  "time": "17:30",
+  "time": "16:30",
   "venue": "Old Trafford",
   "home": "Man Utd",
   "away": "Spurs",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
   "round": 6,
   "date": "2026-10-11",
-  "time": "16:30",
+  "time": "15:30",
   "venue": "Anfield",
   "home": "Liverpool",
   "away": "Man City",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
   "round": 8,
   "date": "2026-10-24",
-  "time": "17:30",
+  "time": "16:30",
   "venue": "Stamford Bridge",
   "home": "Chelsea",
   "away": "Spurs",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Ligue 1",
@@ -123,24 +129,26 @@
  {
   "league": "La Liga",
   "round": 10,
-  "date": "2026-10-25",
-  "time": "20:00",
+  "date": "2026-08-22",
+  "time": "19:30",
   "venue": "Spotify Camp Nou",
   "home": "FC Barcelona",
   "away": "Real Madrid",
-  "result": null,
-  "confirmed_time": true
+  "result": "1 - 2",
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
   "round": 10,
   "date": "2026-10-31",
-  "time": null,
+  "time": "19:45",
   "venue": "Giuseppe Meazza",
   "home": "Milan",
   "away": "Internazionale",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
@@ -157,12 +165,13 @@
   "league": "Bundesliga",
   "round": 8,
   "date": "2026-10-31",
-  "time": "14:30",
+  "time": "00:00",
   "venue": "Allianz Arena",
   "home": "FC Bayern München",
   "away": "Borussia Dortmund",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
@@ -178,24 +187,26 @@
  {
   "league": "Serie A",
   "round": 11,
-  "date": "2026-11-07",
-  "time": null,
+  "date": "2026-11-08",
+  "time": "17:00",
   "venue": "Giuseppe Meazza",
   "home": "Internazionale",
   "away": "Como",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "La Liga",
   "round": 12,
   "date": "2026-11-08",
-  "time": null,
+  "time": "00:00",
   "venue": "Riyadh Air Metropolitano",
   "home": "Atlético de Madrid",
   "away": "FC Barcelona",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
@@ -211,24 +222,26 @@
  {
   "league": "Ligue 1",
   "round": 12,
-  "date": "2026-11-27",
-  "time": "23:00",
+  "date": "2026-11-29",
+  "time": "19:45",
   "venue": "Parc Olympique Lyonnais",
   "home": "Olympique Lyonnais",
   "away": "AS Monaco",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
   "round": 13,
-  "date": "2026-11-28",
-  "time": null,
+  "date": "2026-11-29",
+  "time": "00:00",
   "venue": "Giuseppe Sinigaglia",
   "home": "Como",
   "away": "Juventus",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
@@ -277,24 +290,26 @@
  {
   "league": "Serie A",
   "round": 16,
-  "date": "2026-12-19",
-  "time": null,
+  "date": "2026-12-20",
+  "time": "00:00",
   "venue": "Olimpico",
   "home": "Roma",
   "away": "Juventus",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
   "round": 16,
-  "date": "2026-12-19",
-  "time": null,
+  "date": "2026-12-20",
+  "time": "00:00",
   "venue": "Giuseppe Meazza",
   "home": "Milan",
   "away": "Como",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
@@ -332,24 +347,26 @@
  {
   "league": "Serie A",
   "round": 19,
-  "date": "2027-01-09",
-  "time": null,
+  "date": "2027-01-10",
+  "time": "00:00",
   "venue": "Giuseppe Meazza",
   "home": "Internazionale",
   "away": "Juventus",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
   "round": 19,
-  "date": "2027-01-09",
-  "time": null,
+  "date": "2027-01-10",
+  "time": "00:00",
   "venue": "Olimpico",
   "home": "Roma",
   "away": "Milan",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
@@ -365,24 +382,26 @@
  {
   "league": "Ligue 1",
   "round": 18,
-  "date": "2027-01-29",
-  "time": "23:00",
+  "date": "2027-01-30",
+  "time": "00:00",
   "venue": "Stade Louis II",
   "home": "AS Monaco",
   "away": "Paris Saint-Germain",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
   "round": 22,
-  "date": "2027-01-30",
-  "time": null,
+  "date": "2027-01-31",
+  "time": "00:00",
   "venue": "Giuseppe Meazza",
   "home": "Milan",
   "away": "Juventus",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
@@ -420,13 +439,14 @@
  {
   "league": "La Liga",
   "round": 23,
-  "date": "2027-02-07",
-  "time": null,
+  "date": "2026-10-18",
+  "time": "00:00",
   "venue": "Spotify Camp Nou",
   "home": "FC Barcelona",
   "away": "Atlético de Madrid",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
@@ -442,24 +462,26 @@
  {
   "league": "Serie A",
   "round": 24,
-  "date": "2027-02-13",
-  "time": null,
+  "date": "2027-02-14",
+  "time": "00:00",
   "venue": "Giuseppe Meazza",
   "home": "Internazionale",
   "away": "Milan",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
   "round": 26,
-  "date": "2027-02-27",
-  "time": null,
+  "date": "2027-02-28",
+  "time": "00:00",
   "venue": "Giuseppe Sinigaglia",
   "home": "Como",
   "away": "Milan",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
@@ -486,35 +508,38 @@
  {
   "league": "Ligue 1",
   "round": 23,
-  "date": "2027-03-05",
-  "time": "23:00",
+  "date": "2027-03-06",
+  "time": "00:00",
   "venue": "Stade Louis II",
   "home": "AS Monaco",
   "away": "Olympique Lyonnais",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
   "round": 27,
-  "date": "2027-03-06",
-  "time": null,
+  "date": "2027-03-07",
+  "time": "00:00",
   "venue": "Allianz Stadium",
   "home": "Juventus",
   "away": "Roma",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Bundesliga",
   "round": 25,
   "date": "2027-03-06",
-  "time": "14:30",
+  "time": "00:00",
   "venue": "SIGNAL IDUNA PARK",
   "home": "Borussia Dortmund",
   "away": "FC Bayern München",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
@@ -530,13 +555,14 @@
  {
   "league": "Serie A",
   "round": 29,
-  "date": "2027-03-20",
-  "time": null,
+  "date": "2027-03-21",
+  "time": "00:00",
   "venue": "Allianz Stadium",
   "home": "Juventus",
   "away": "Como",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
@@ -553,154 +579,168 @@
   "league": "La Liga",
   "round": 30,
   "date": "2027-04-04",
-  "time": null,
+  "time": "00:00",
   "venue": "Bernabéu",
   "home": "Real Madrid",
   "away": "Atlético de Madrid",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
   "round": 31,
-  "date": "2027-04-10",
-  "time": null,
+  "date": "2027-04-11",
+  "time": "00:00",
   "venue": "Giuseppe Meazza",
   "home": "Internazionale",
   "away": "Roma",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
   "round": 33,
   "date": "2027-04-24",
-  "time": "15:00",
+  "time": "14:00",
   "venue": "Stamford Bridge",
   "home": "Chelsea",
   "away": "Man City",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
   "round": 34,
-  "date": "2027-05-01",
-  "time": null,
+  "date": "2027-05-02",
+  "time": "00:00",
   "venue": "Giuseppe Sinigaglia",
   "home": "Como",
   "away": "Internazionale",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
   "round": 34,
   "date": "2027-05-01",
-  "time": "15:00",
+  "time": "14:00",
   "venue": "Anfield",
   "home": "Liverpool",
   "away": "Chelsea",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
   "round": 34,
   "date": "2027-05-01",
-  "time": "15:00",
+  "time": "14:00",
   "venue": "Emirates Stadium",
   "home": "Arsenal",
   "away": "Spurs",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Ligue 1",
   "round": 31,
-  "date": "2027-05-07",
-  "time": "22:00",
+  "date": "2027-05-09",
+  "time": "18:45",
   "venue": "Parc Olympique Lyonnais",
   "home": "Olympique Lyonnais",
   "away": "Paris Saint-Germain",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
   "round": 35,
   "date": "2027-05-08",
-  "time": "15:00",
+  "time": "14:00",
   "venue": "Etihad Stadium",
   "home": "Man City",
   "away": "Liverpool",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
   "round": 35,
   "date": "2027-05-08",
-  "time": "15:00",
+  "time": "14:00",
   "venue": "Tottenham Hotspur Stadium",
   "home": "Spurs",
   "away": "Chelsea",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "La Liga",
   "round": 35,
-  "date": "2027-05-09",
-  "time": null,
+  "date": "2027-03-14",
+  "time": "00:00",
   "venue": "Bernabéu",
   "home": "Real Madrid",
   "away": "FC Barcelona",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
   "round": 36,
-  "date": "2027-05-15",
-  "time": null,
+  "date": "2027-05-16",
+  "time": "00:00",
   "venue": "Allianz Stadium",
   "home": "Juventus",
   "away": "Internazionale",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
   "round": 36,
-  "date": "2027-05-15",
-  "time": null,
+  "date": "2027-05-16",
+  "time": "00:00",
   "venue": "Giuseppe Meazza",
   "home": "Milan",
   "away": "Roma",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
   "round": 37,
-  "date": "2027-05-22",
-  "time": null,
+  "date": "2027-05-23",
+  "time": "00:00",
   "venue": "Olimpico",
   "home": "Roma",
   "away": "Como",
   "result": null,
-  "confirmed_time": false
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
   "round": 37,
   "date": "2027-05-23",
-  "time": "15:00",
+  "time": "14:00",
   "venue": "Tottenham Hotspur Stadium",
   "home": "Spurs",
   "away": "Man Utd",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  }
 ]

@@ -12,15 +12,6 @@ LOCATION:Parc des Princes
 DESCRIPTION:Ligue 1 — Round 3. Result: 1 - 2
 END:VEVENT
 BEGIN:VEVENT
-UID:bigfixtures-premier-league-3-arsenal-chelsea@bigfixtures
-DTSTAMP:20260908T085122Z
-DTSTART:20260906T153000Z
-DTEND:20260906T174500Z
-SUMMARY:Arsenal vs Chelsea (PL)
-LOCATION:Emirates Stadium
-DESCRIPTION:Premier League — Round 3. Result: 2 - 1
-END:VEVENT
-BEGIN:VEVENT
 UID:bigfixtures-serie-a-3-juventus-milan@bigfixtures
 DTSTAMP:20260908T085122Z
 DTSTART:20260906T184500
@@ -138,15 +129,6 @@ LOCATION:Allianz Arena
 DESCRIPTION:Bundesliga — Round 8
 END:VEVENT
 BEGIN:VEVENT
-UID:bigfixtures-premier-league-9-liverpool-arsenal@bigfixtures
-DTSTAMP:20260908T085122Z
-DTSTART:20261101T163000
-DTEND:20261101T184500
-SUMMARY:Liverpool vs Arsenal (PL)
-LOCATION:Anfield
-DESCRIPTION:Premier League — Round 9
-END:VEVENT
-BEGIN:VEVENT
 UID:bigfixtures-serie-a-11-internazionale-como@bigfixtures
 DTSTAMP:20260908T085122Z
 DTSTART:20261108T170000Z
@@ -192,30 +174,12 @@ LOCATION:Giuseppe Sinigaglia
 DESCRIPTION:Serie A — Round 13
 END:VEVENT
 BEGIN:VEVENT
-UID:bigfixtures-premier-league-12-arsenal-man-city@bigfixtures
-DTSTAMP:20260908T085122Z
-DTSTART:20261128T150000
-DTEND:20261128T171500
-SUMMARY:Arsenal vs Man City (PL)
-LOCATION:Emirates Stadium
-DESCRIPTION:Premier League — Round 12
-END:VEVENT
-BEGIN:VEVENT
 UID:bigfixtures-premier-league-14-chelsea-liverpool@bigfixtures
 DTSTAMP:20260908T085122Z
 DTSTART:20261205T150000
 DTEND:20261205T171500
 SUMMARY:Chelsea vs Liverpool (PL)
 LOCATION:Stamford Bridge
-DESCRIPTION:Premier League — Round 14
-END:VEVENT
-BEGIN:VEVENT
-UID:bigfixtures-premier-league-14-spurs-arsenal@bigfixtures
-DTSTAMP:20260908T085122Z
-DTSTART:20261205T150000
-DTEND:20261205T171500
-SUMMARY:Spurs vs Arsenal (PL)
-LOCATION:Tottenham Hotspur Stadium
 DESCRIPTION:Premier League — Round 14
 END:VEVENT
 BEGIN:VEVENT
@@ -244,15 +208,6 @@ DTEND:20261220T021500Z
 SUMMARY:Milan vs Como (SERIE A)
 LOCATION:Giuseppe Meazza
 DESCRIPTION:Serie A — Round 16
-END:VEVENT
-BEGIN:VEVENT
-UID:bigfixtures-premier-league-16-arsenal-man-utd@bigfixtures
-DTSTAMP:20260908T085122Z
-DTSTART:20261219T150000
-DTEND:20261219T171500
-SUMMARY:Arsenal vs Man Utd (PL)
-LOCATION:Emirates Stadium
-DESCRIPTION:Premier League — Round 16
 END:VEVENT
 BEGIN:VEVENT
 UID:bigfixtures-premier-league-16-liverpool-spurs@bigfixtures
@@ -318,30 +273,12 @@ LOCATION:Giuseppe Meazza
 DESCRIPTION:Serie A — Round 22
 END:VEVENT
 BEGIN:VEVENT
-UID:bigfixtures-premier-league-23-man-city-arsenal@bigfixtures
-DTSTAMP:20260908T085122Z
-DTSTART:20270130T150000
-DTEND:20270130T171500
-SUMMARY:Man City vs Arsenal (PL)
-LOCATION:Etihad Stadium
-DESCRIPTION:Premier League — Round 23
-END:VEVENT
-BEGIN:VEVENT
 UID:bigfixtures-premier-league-24-man-utd-chelsea@bigfixtures
 DTSTAMP:20260908T085122Z
 DTSTART:20270206T150000
 DTEND:20270206T171500
 SUMMARY:Man Utd vs Chelsea (PL)
 LOCATION:Old Trafford
-DESCRIPTION:Premier League — Round 24
-END:VEVENT
-BEGIN:VEVENT
-UID:bigfixtures-premier-league-24-arsenal-liverpool@bigfixtures
-DTSTAMP:20260908T085122Z
-DTSTART:20270206T150000
-DTEND:20270206T171500
-SUMMARY:Arsenal vs Liverpool (PL)
-LOCATION:Emirates Stadium
 DESCRIPTION:Premier League — Round 24
 END:VEVENT
 BEGIN:VEVENT
@@ -381,15 +318,6 @@ LOCATION:Giuseppe Sinigaglia
 DESCRIPTION:Serie A — Round 26
 END:VEVENT
 BEGIN:VEVENT
-UID:bigfixtures-premier-league-27-man-utd-arsenal@bigfixtures
-DTSTAMP:20260908T085122Z
-DTSTART:20270227T150000
-DTEND:20270227T171500
-SUMMARY:Man Utd vs Arsenal (PL)
-LOCATION:Old Trafford
-DESCRIPTION:Premier League — Round 27
-END:VEVENT
-BEGIN:VEVENT
 UID:bigfixtures-premier-league-27-spurs-liverpool@bigfixtures
 DTSTAMP:20260908T085122Z
 DTSTART:20270227T150000
@@ -424,15 +352,6 @@ DTEND:20270306T021500Z
 SUMMARY:Borussia Dortmund vs FC Bayern München (BUND)
 LOCATION:SIGNAL IDUNA PARK
 DESCRIPTION:Bundesliga — Round 25
-END:VEVENT
-BEGIN:VEVENT
-UID:bigfixtures-premier-league-29-chelsea-arsenal@bigfixtures
-DTSTAMP:20260908T085122Z
-DTSTART:20270313T150000
-DTEND:20270313T171500
-SUMMARY:Chelsea vs Arsenal (PL)
-LOCATION:Stamford Bridge
-DESCRIPTION:Premier League — Round 29
 END:VEVENT
 BEGIN:VEVENT
 UID:bigfixtures-serie-a-29-juventus-como@bigfixtures
@@ -495,15 +414,6 @@ DTSTART:20270501T140000Z
 DTEND:20270501T161500Z
 SUMMARY:Liverpool vs Chelsea (PL)
 LOCATION:Anfield
-DESCRIPTION:Premier League — Round 34
-END:VEVENT
-BEGIN:VEVENT
-UID:bigfixtures-premier-league-34-arsenal-spurs@bigfixtures
-DTSTAMP:20260908T085122Z
-DTSTART:20270501T140000Z
-DTEND:20270501T161500Z
-SUMMARY:Arsenal vs Spurs (PL)
-LOCATION:Emirates Stadium
 DESCRIPTION:Premier League — Round 34
 END:VEVENT
 BEGIN:VEVENT
