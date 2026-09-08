@@ -1,0 +1,36 @@
+name: Update fixture scores
+
+on:
+  schedule:
+    # 23:00 UTC daily — adjust the cron if you'd rather it run at a different time
+    - cron: '0 23 * * *'
+  workflow_dispatch: {}   # lets you trigger it manually from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install requests
+
+      - name: Run updater
+        env:
+          FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+        run: |
+          python update_scores.py --data data/big_fixtures.json --outdir data --exclude-team Arsenal
+
+      - name: Commit and push if anything changed
+        run: |
+          git config user.name "big-fixtures-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/
+          git diff --staged --quiet || git commit -m "Automated score/schedule update"
+          git diff --staged --quiet || git push
