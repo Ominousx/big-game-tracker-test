@@ -282,6 +282,35 @@ const LEAGUE_SHORT = {
   "Ligue 1": "LIGUE 1"
 };
 
+// IANA zone for each league's home country — used to correctly interpret
+// kickoff times that haven't yet been normalized to UTC by update_scores.py.
+const LEAGUE_TZ = {
+  "Premier League": "Europe/London",
+  "La Liga": "Europe/Madrid",
+  "Bundesliga": "Europe/Berlin",
+  "Serie A": "Europe/Rome",
+  "Ligue 1": "Europe/Paris"
+};
+
+// Converts a wall-clock date+time in a given IANA timezone to the correct
+// UTC Date instant, correctly handling DST for that specific date.
+function zonedTimeToUtc(dateStr, timeStr, timeZone){
+  const guessUtc = new Date(`${dateStr}T${timeStr}:00Z`);
+  const asSeenInZone = new Date(guessUtc.toLocaleString('en-US', { timeZone }));
+  const diff = guessUtc.getTime() - asSeenInZone.getTime();
+  return new Date(guessUtc.getTime() + diff);
+}
+
+// Returns the true UTC Date instant for a fixture's kickoff, or null if
+// the time isn't confirmed yet.
+function fixtureUtcDate(f){
+  if(!f.confirmed_time) return null;
+  if(f.time_is_utc){
+    return new Date(`${f.date}T${f.time}:00Z`);
+  }
+  return zonedTimeToUtc(f.date, f.time, LEAGUE_TZ[f.league]);
+}
+
 let activeLeagues = new Set(Object.keys(LEAGUE_COLOR));
 let showScores = false;
 
@@ -316,10 +345,11 @@ function render(){
   const wire = document.getElementById('wire');
   wire.innerHTML = '';
   const filtered = DATA.filter(d=>activeLeagues.has(d.league))
-                       .sort((a,b)=> (a.date+ (a.time||'00:00')).localeCompare(b.date+(b.time||'00:00')));
+                       .sort((a,b)=> (fixtureUtcDate(a) || new Date(a.date+'T00:00:00')) - (fixtureUtcDate(b) || new Date(b.date+'T00:00:00')));
   let lastMonth = '';
   filtered.forEach(f=>{
-    const d = new Date(f.date+'T00:00:00');
+    const utcDate = fixtureUtcDate(f);
+    const d = utcDate || new Date(f.date+'T00:00:00');
     const monthKey = fmtMonth(d);
     if(monthKey !== lastMonth){
       const h = document.createElement('div');
@@ -339,7 +369,8 @@ function render(){
     } else if(!f.confirmed_time){
       statusHtml = `<span class="tbc">TIME TBC</span>`;
     } else {
-      statusHtml = `<span class="kickoff">${f.time}</span><span class="tag">LOCAL KICKOFF</span>`;
+      const localTime = utcDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+      statusHtml = `<span class="kickoff">${localTime}</span><span class="tag">YOUR TIME</span>`;
     }
     row.innerHTML = `
       <div class="date-block"><span class="dow">${fmtDow(d)}</span><span class="dnum">${d.getDate()}</span></div>
@@ -372,7 +403,7 @@ function renderCountdown(){
   const now = new Date();
   const upcoming = DATA
     .filter(f => !f.result)
-    .map(f => ({ f, when: new Date(f.date + 'T' + (f.time || '00:00') + ':00') }))
+    .map(f => ({ f, when: fixtureUtcDate(f) || new Date(f.date + 'T23:59:59') }))
     .filter(x => x.when > now)
     .sort((a,b) => a.when - b.when);
   if(upcoming.length === 0){ el.textContent = ''; return; }
@@ -420,14 +451,11 @@ function buildIcs(fixtures){
     lines.push('DTSTAMP:'+dtstamp);
 
     if(f.confirmed_time){
-      const [hh,mm] = f.time.split(':');
-      const startCompact = dateCompact+'T'+hh+mm+'00';
-      // rough 2h15m fixture duration
-      const startDate = new Date(f.date+'T'+f.time+':00');
+      const startDate = fixtureUtcDate(f);
       const endDate = new Date(startDate.getTime() + (2*60+15)*60000);
-      const endCompact = endDate.getFullYear()+pad(endDate.getMonth()+1)+pad(endDate.getDate())+'T'+pad(endDate.getHours())+pad(endDate.getMinutes())+'00';
-      lines.push('DTSTART:'+startCompact);
-      lines.push('DTEND:'+endCompact);
+      const fmt = (dt) => dt.getUTCFullYear()+pad(dt.getUTCMonth()+1)+pad(dt.getUTCDate())+'T'+pad(dt.getUTCHours())+pad(dt.getUTCMinutes())+pad(dt.getUTCSeconds())+'Z';
+      lines.push('DTSTART:'+fmt(startDate));
+      lines.push('DTEND:'+fmt(endDate));
     } else {
       const endD = new Date(f.date+'T00:00:00');
       endD.setDate(endD.getDate()+1);
