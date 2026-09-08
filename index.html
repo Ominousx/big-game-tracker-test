@@ -250,8 +250,7 @@
       <button class="primary" id="downloadIcs">Download calendar file (.ics)</button>
       <button class="secondary" id="expandAll">Show scores for played matches</button>
     </div>
-    <div class="actions" id="subscribeRow" style="margin-top:2px;"></div>
-    <p class="hint">On iPhone: open the downloaded file &rarr; "Add All" in Calendar. On Mac: double-click it &rarr; choose Calendar. &middot; Kickoff times are shown in each match's local time — iOS will convert automatically to your device's time zone. &middot; Prefer a feed that updates itself instead of re-importing? Use "Subscribe" below — it re-checks automatically as long as the daily updater is running.</p>
+    <p class="hint">On iPhone: open the downloaded file &rarr; "Add All" in Calendar. On Mac: double-click it &rarr; choose Calendar. &middot; Kickoff times are shown in each match's local time — iOS will convert automatically to your device's time zone.</p>
   </header>
 
   <div class="filters" id="filters"></div>
@@ -388,22 +387,9 @@ function renderCountdown(){
   el.innerHTML = `NEXT UP IN <b>${timeStr}</b> — <b>${f.home} vs ${f.away}</b> · ${LEAGUE_SHORT[f.league]}${timeNote}`;
 }
 
-/* ---------------- SUBSCRIBE LINKS ---------------- */
-function renderSubscribeLinks(){
-  const box = document.getElementById('subscribeRow');
-  const base = new URL('.', location.href).href; // current directory
-  const full = new URL('data/big-fixtures.ics', base).href.replace(/^https?:/, 'webcal:');
-  const filtered = new URL('data/big-fixtures-filtered.ics', base).href.replace(/^https?:/, 'webcal:');
-  box.innerHTML = `
-    <a class="sub-link" href="${full}">Subscribe — all fixtures</a>
-    <a class="sub-link" href="${filtered}">Subscribe — no Arsenal</a>
-  `;
-}
-
 buildFilters();
 render();
 renderCountdown();
-renderSubscribeLinks();
 
 /* ---------------- ICS GENERATION ---------------- */
 function pad(n){ return n.toString().padStart(2,'0'); }
