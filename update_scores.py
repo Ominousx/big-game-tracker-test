@@ -11,7 +11,7 @@ Run this once a day (cron/Task Scheduler) to:
 Setup:
   pip install requests
   Get a free API key: https://www.football-data.org/client/register
-  export FOOTBALL_DATA_API_KEY="a78dd97ff7584ba1ad390601276df4c9"
+  export FOOTBALL_DATA_API_KEY="your-key-here"
 
 Usage:
   python update_scores.py
@@ -51,16 +51,11 @@ KEYWORDS = {
     "Liverpool": ["liverpool"],
     "Real Madrid": ["real madrid"],
     "FC Barcelona": ["barcelona"],
-    "Atlético de Madrid": [
-        "atletico madrid",
-        "atlético madrid",
-        "atletico de madrid",
-        "atlético de madrid",
-    ],
+    "Atlético de Madrid": ["atletico madrid", "atlético madrid", "atletico de madrid", "atlético de madrid"],
     "FC Bayern München": ["bayern"],
     "Borussia Dortmund": ["dortmund"],
     "Como": ["como"],
-    "Milan": ["ac milan"],  # must NOT match "inter"
+    "Milan": ["ac milan"],          # must NOT match "inter"
     "Internazionale": ["inter milan", "internazionale", "fc internazionale"],
     "Juventus": ["juventus"],
     "Roma": ["as roma"],
@@ -112,9 +107,14 @@ def find_api_match(api_matches, home, away):
     return None
 
 
-def collect_crests(api_match, home_name, away_name, crests):
-    home_crest = api_match.get("homeTeam", {}).get("crest")
-    away_crest = api_match.get("awayTeam", {}).get("crest")
+def collect_crests(api_match, home_name, away_name, crests, debug_once=[False]):
+    home_team = api_match.get("homeTeam", {})
+    away_team = api_match.get("awayTeam", {})
+    if not debug_once[0]:
+        print(f"  [debug] sample homeTeam keys: {list(home_team.keys())}")
+        debug_once[0] = True
+    home_crest = home_team.get("crest")
+    away_crest = away_team.get("crest")
     if home_crest:
         crests[home_name] = home_crest
     if away_crest:
@@ -129,9 +129,7 @@ def update_fixture_from_api(fixture, api_match):
     new_time = utc_dt.strftime("%H:%M")
 
     if fixture["date"] != new_date or fixture.get("time") != new_time:
-        changed.append(
-            f"kickoff {fixture['date']} {fixture.get('time')} -> {new_date} {new_time} UTC"
-        )
+        changed.append(f"kickoff {fixture['date']} {fixture.get('time')} -> {new_date} {new_time} UTC")
         fixture["date"] = new_date
         fixture["time"] = new_time
         fixture["confirmed_time"] = True
@@ -155,26 +153,15 @@ def esc(s):
 
 
 def build_ics(fixtures):
-    lines = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//Big Fixtures//Rivalry Wire//EN",
-        "CALSCALE:GREGORIAN",
-    ]
+    lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Big Fixtures//Rivalry Wire//EN", "CALSCALE:GREGORIAN"]
     dtstamp = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
     for f in fixtures:
         uid = f"bigfixtures-{f['league']}-{f['round']}-{f['home']}-{f['away']}"
         uid = "".join(c if c.isalnum() else "-" for c in uid).lower() + "@bigfixtures"
         summary = esc(f"{f['home']} vs {f['away']} ({LEAGUE_SHORT[f['league']]})")
-        desc = esc(
-            f"{f['league']} \u2014 Round {f['round']}"
-            + (
-                ""
-                if f["confirmed_time"]
-                else ". Kickoff time not yet confirmed by the league."
-            )
-            + (f". Result: {f['result']}" if f.get("result") else "")
-        )
+        desc = esc(f"{f['league']} \u2014 Round {f['round']}" +
+                   ("" if f["confirmed_time"] else ". Kickoff time not yet confirmed by the league.") +
+                   (f". Result: {f['result']}" if f.get("result") else ""))
         loc = esc(f["venue"])
         date_compact = f["date"].replace("-", "")
 
@@ -205,18 +192,10 @@ def build_ics(fixtures):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--data", default="big_fixtures.json", help="Path to the master fixture JSON"
-    )
-    parser.add_argument(
-        "--outdir", default=".", help="Where to write updated .ics files"
-    )
-    parser.add_argument(
-        "--exclude-team",
-        action="append",
-        default=[],
-        help="Team name to exclude from the 'no-overlap' ics (repeatable)",
-    )
+    parser.add_argument("--data", default="big_fixtures.json", help="Path to the master fixture JSON")
+    parser.add_argument("--outdir", default=".", help="Where to write updated .ics files")
+    parser.add_argument("--exclude-team", action="append", default=[],
+                         help="Team name to exclude from the 'no-overlap' ics (repeatable)")
     args = parser.parse_args()
 
     api_key = os.environ.get("FOOTBALL_DATA_API_KEY")
@@ -246,9 +225,7 @@ def main():
         for fx in relevant:
             m = find_api_match(api_matches, fx["home"], fx["away"])
             if not m:
-                print(
-                    f"  ! No API match found for {fx['home']} vs {fx['away']} (round {fx['round']})"
-                )
+                print(f"  ! No API match found for {fx['home']} vs {fx['away']} (round {fx['round']})")
                 continue
             changes = update_fixture_from_api(fx, m)
             collect_crests(m, fx["home"], fx["away"], crests)
@@ -263,18 +240,14 @@ def main():
 
     with open(crests_path, "w") as f:
         json.dump(crests, f, indent=1, ensure_ascii=False)
+    print(f"Crests collected so far: {len(crests)} teams -> {list(crests.keys())}")
 
     full_ics = build_ics(fixtures)
     with open(os.path.join(args.outdir, "big-fixtures.ics"), "w") as f:
         f.write(full_ics)
 
     if args.exclude_team:
-        filtered = [
-            fx
-            for fx in fixtures
-            if fx["home"] not in args.exclude_team
-            and fx["away"] not in args.exclude_team
-        ]
+        filtered = [fx for fx in fixtures if fx["home"] not in args.exclude_team and fx["away"] not in args.exclude_team]
         filt_ics = build_ics(filtered)
         with open(os.path.join(args.outdir, "big-fixtures-filtered.ics"), "w") as f:
             f.write(filt_ics)
