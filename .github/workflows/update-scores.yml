@@ -32,5 +32,9 @@ jobs:
           git config user.name "big-fixtures-bot"
           git config user.email "actions@users.noreply.github.com"
           git add data/
-          git diff --staged --quiet || git commit -m "Automated score/schedule update"
-          git diff --staged --quiet || git push
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Automated score/schedule update"
+            git push
+          fi
