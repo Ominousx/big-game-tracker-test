@@ -66,7 +66,33 @@
   }
   .lede b{color:var(--paper);font-weight:600;}
 
+  .countdown{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--gold);
+    margin:0 0 22px;
+    letter-spacing:0.01em;
+  }
+  .countdown b{color:var(--paper);font-weight:600;}
   .actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;}
+  a.sub-link{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:#cfc9b8;
+    text-decoration:none;
+    border:1px solid var(--line);
+    padding:9px 13px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  a.sub-link:hover{border-color:var(--gold);color:var(--gold);}
+  .crest{
+    width:20px;height:20px;
+    object-fit:contain;
+    vertical-align:-4px;
+    margin-right:7px;
+  }
   button.primary, a.primary{
     font-family:'IBM Plex Sans',sans-serif;
     font-weight:600;
@@ -219,11 +245,13 @@
     <p class="kicker">// FIVE LEAGUES · ONE WIRE</p>
     <h1>Big<br>Fixtures<em>.</em></h1>
     <p class="lede">Every meeting between the clubs that actually matter to you this season — <b>Arsenal, Chelsea, Spurs, Man Utd, Man City &amp; Liverpool</b> in the Premier League, <b>Real Madrid, Barcelona &amp; Atlético</b> in La Liga, <b>Bayern &amp; Dortmund</b> in the Bundesliga, <b>Como, Milan, Inter, Juventus &amp; Roma</b> in Serie A, and <b>PSG, Monaco &amp; Lyon</b> in Ligue 1 — pulled into one wire.</p>
+    <p class="countdown" id="countdown"></p>
     <div class="actions">
       <button class="primary" id="downloadIcs">Download calendar file (.ics)</button>
       <button class="secondary" id="expandAll">Show scores for played matches</button>
     </div>
-    <p class="hint">On iPhone: open the downloaded file &rarr; "Add All" in Calendar. On Mac: double-click it &rarr; choose Calendar. &middot; Kickoff times are shown in each match's local time — iOS will convert automatically to your device's time zone.</p>
+    <div class="actions" id="subscribeRow" style="margin-top:2px;"></div>
+    <p class="hint">On iPhone: open the downloaded file &rarr; "Add All" in Calendar. On Mac: double-click it &rarr; choose Calendar. &middot; Kickoff times are shown in each match's local time — iOS will convert automatically to your device's time zone. &middot; Prefer a feed that updates itself instead of re-importing? Use "Subscribe" below — it re-checks automatically as long as the daily updater is running.</p>
   </header>
 
   <div class="filters" id="filters"></div>
@@ -278,6 +306,13 @@ function buildFilters(){
 function fmtDow(d){ return d.toLocaleDateString('en-GB',{weekday:'short'}).toUpperCase(); }
 function fmtMonth(d){ return d.toLocaleDateString('en-GB',{month:'long',year:'numeric'}).toUpperCase(); }
 
+let CRESTS = {};
+
+function crestImg(name){
+  const url = CRESTS[name];
+  return url ? `<img class="crest" src="${url}" alt="" loading="lazy">` : '';
+}
+
 function render(){
   const wire = document.getElementById('wire');
   wire.innerHTML = '';
@@ -311,7 +346,7 @@ function render(){
       <div class="date-block"><span class="dow">${fmtDow(d)}</span><span class="dnum">${d.getDate()}</span></div>
       <div class="stripe" style="background:${LEAGUE_COLOR[f.league]}"></div>
       <div class="match">
-        <div class="teams">${f.home}<span class="vs">vs</span>${f.away}</div>
+        <div class="teams">${crestImg(f.home)}${f.home}<span class="vs">vs</span>${crestImg(f.away)}${f.away}</div>
         <div class="meta">${LEAGUE_SHORT[f.league]} · ROUND ${f.round} · ${f.venue.toUpperCase()}</div>
       </div>
       <div class="status">${statusHtml}</div>
@@ -326,8 +361,49 @@ document.getElementById('expandAll').addEventListener('click', (e)=>{
   render();
 });
 
+/* ---------------- CRESTS (loaded async, re-render once available) ---------------- */
+fetch('data/team_crests.json')
+  .then(r => r.ok ? r.json() : {})
+  .then(json => { CRESTS = json || {}; render(); })
+  .catch(() => { /* file not generated yet — fine, just no crests */ });
+
+/* ---------------- COUNTDOWN TO NEXT FIXTURE ---------------- */
+function renderCountdown(){
+  const el = document.getElementById('countdown');
+  const now = new Date();
+  const upcoming = DATA
+    .filter(f => !f.result)
+    .map(f => ({ f, when: new Date(f.date + 'T' + (f.time || '00:00') + ':00') }))
+    .filter(x => x.when > now)
+    .sort((a,b) => a.when - b.when);
+  if(upcoming.length === 0){ el.textContent = ''; return; }
+  const { f, when } = upcoming[0];
+  const diffMs = when - now;
+  const days = Math.floor(diffMs / 86400000);
+  const hours = Math.floor((diffMs % 86400000) / 3600000);
+  let timeStr;
+  if(days >= 1) timeStr = `${days} day${days===1?'':'s'}`;
+  else timeStr = `${hours} hour${hours===1?'':'s'}`;
+  const timeNote = f.confirmed_time ? '' : ' (time TBC)';
+  el.innerHTML = `NEXT UP IN <b>${timeStr}</b> — <b>${f.home} vs ${f.away}</b> · ${LEAGUE_SHORT[f.league]}${timeNote}`;
+}
+
+/* ---------------- SUBSCRIBE LINKS ---------------- */
+function renderSubscribeLinks(){
+  const box = document.getElementById('subscribeRow');
+  const base = new URL('.', location.href).href; // current directory
+  const full = new URL('data/big-fixtures.ics', base).href.replace(/^https?:/, 'webcal:');
+  const filtered = new URL('data/big-fixtures-filtered.ics', base).href.replace(/^https?:/, 'webcal:');
+  box.innerHTML = `
+    <a class="sub-link" href="${full}">Subscribe — all fixtures</a>
+    <a class="sub-link" href="${filtered}">Subscribe — no Arsenal</a>
+  `;
+}
+
 buildFilters();
 render();
+renderCountdown();
+renderSubscribeLinks();
 
 /* ---------------- ICS GENERATION ---------------- */
 function pad(n){ return n.toString().padStart(2,'0'); }

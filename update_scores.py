@@ -107,6 +107,15 @@ def find_api_match(api_matches, home, away):
     return None
 
 
+def collect_crests(api_match, home_name, away_name, crests):
+    home_crest = api_match.get("homeTeam", {}).get("crest")
+    away_crest = api_match.get("awayTeam", {}).get("crest")
+    if home_crest:
+        crests[home_name] = home_crest
+    if away_crest:
+        crests[away_name] = away_crest
+
+
 def update_fixture_from_api(fixture, api_match):
     changed = []
     utc_dt = datetime.strptime(api_match["utcDate"], "%Y-%m-%dT%H:%M:%SZ")
@@ -193,6 +202,11 @@ def main():
 
     api_cache = {}
     total_changes = 0
+    crests_path = os.path.join(args.outdir, "team_crests.json")
+    crests = {}
+    if os.path.exists(crests_path):
+        with open(crests_path) as f:
+            crests = json.load(f)
 
     for league, code in COMPETITIONS.items():
         relevant = [fx for fx in fixtures if fx["league"] == league]
@@ -209,6 +223,7 @@ def main():
                 print(f"  ! No API match found for {fx['home']} vs {fx['away']} (round {fx['round']})")
                 continue
             changes = update_fixture_from_api(fx, m)
+            collect_crests(m, fx["home"], fx["away"], crests)
             if changes:
                 total_changes += len(changes)
                 print(f"  {fx['home']} vs {fx['away']}: " + "; ".join(changes))
@@ -217,6 +232,9 @@ def main():
         json.dump(fixtures, f, indent=1, ensure_ascii=False)
 
     os.makedirs(args.outdir, exist_ok=True)
+
+    with open(crests_path, "w") as f:
+        json.dump(crests, f, indent=1, ensure_ascii=False)
 
     full_ics = build_ics(fixtures)
     with open(os.path.join(args.outdir, "big-fixtures.ics"), "w") as f:
