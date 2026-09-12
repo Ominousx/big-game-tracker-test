@@ -336,13 +336,14 @@
  {
   "league": "Premier League",
   "round": 19,
-  "date": "2027-01-02",
-  "time": "15:00",
+  "date": "2027-01-03",
+  "time": "16:30",
   "venue": "Etihad Stadium",
   "home": "Man City",
   "away": "Spurs",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
