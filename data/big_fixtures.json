@@ -211,13 +211,14 @@
  {
   "league": "Premier League",
   "round": 11,
-  "date": "2026-11-21",
-  "time": "15:00",
+  "date": "2026-11-22",
+  "time": "16:30",
   "venue": "Anfield",
   "home": "Liverpool",
   "away": "Man Utd",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Ligue 1",
@@ -246,13 +247,14 @@
  {
   "league": "Premier League",
   "round": 12,
-  "date": "2026-11-28",
-  "time": "15:00",
+  "date": "2026-11-29",
+  "time": "16:30",
   "venue": "Emirates Stadium",
   "home": "Arsenal",
   "away": "Man City",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
