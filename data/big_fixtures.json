@@ -75,7 +75,7 @@
   "venue": "Giuseppe Sinigaglia",
   "home": "Como",
   "away": "Roma",
-  "result": null,
+  "result": "0 - 0",
   "confirmed_time": true,
   "time_is_utc": true
  },
@@ -99,7 +99,7 @@
   "venue": "Anfield",
   "home": "Liverpool",
   "away": "Man City",
-  "result": null,
+  "result": "0 - 3",
   "confirmed_time": true,
   "time_is_utc": true
  },
