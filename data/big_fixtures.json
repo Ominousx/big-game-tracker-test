@@ -260,34 +260,37 @@
   "league": "Premier League",
   "round": 14,
   "date": "2026-12-05",
-  "time": "15:00",
+  "time": "12:30",
   "venue": "Stamford Bridge",
   "home": "Chelsea",
   "away": "Liverpool",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
   "round": 14,
-  "date": "2026-12-05",
-  "time": "15:00",
+  "date": "2026-12-06",
+  "time": "16:30",
   "venue": "Tottenham Hotspur Stadium",
   "home": "Spurs",
   "away": "Arsenal",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
   "round": 15,
   "date": "2026-12-12",
-  "time": "15:00",
+  "time": "17:30",
   "venue": "Etihad Stadium",
   "home": "Man City",
   "away": "Chelsea",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Serie A",
@@ -316,24 +319,26 @@
  {
   "league": "Premier League",
   "round": 16,
-  "date": "2026-12-19",
-  "time": "15:00",
+  "date": "2026-12-20",
+  "time": "16:30",
   "venue": "Emirates Stadium",
   "home": "Arsenal",
   "away": "Man Utd",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
   "round": 16,
   "date": "2026-12-19",
-  "time": "15:00",
+  "time": "17:30",
   "venue": "Anfield",
   "home": "Liverpool",
   "away": "Spurs",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
