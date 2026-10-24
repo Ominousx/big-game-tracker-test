@@ -118,13 +118,14 @@
  {
   "league": "Ligue 1",
   "round": 8,
-  "date": "2026-10-25",
-  "time": "19:45",
+  "date": "2026-10-26",
+  "time": "19:30",
   "venue": "Parc des Princes",
   "home": "Paris Saint-Germain",
   "away": "Olympique Lyonnais",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "La Liga",
