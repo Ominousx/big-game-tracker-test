@@ -147,7 +147,7 @@
   "venue": "Giuseppe Meazza",
   "home": "Milan",
   "away": "Internazionale",
-  "result": null,
+  "result": "3 - 1",
   "confirmed_time": true,
   "time_is_utc": true
  },
@@ -159,7 +159,7 @@
   "venue": "Stamford Bridge",
   "home": "Chelsea",
   "away": "Man Utd",
-  "result": null,
+  "result": "2 - 0",
   "confirmed_time": true
  },
  {
@@ -170,7 +170,7 @@
   "venue": "Allianz Arena",
   "home": "FC Bayern München",
   "away": "Borussia Dortmund",
-  "result": null,
+  "result": "2 - 2",
   "confirmed_time": true,
   "time_is_utc": true
  },
