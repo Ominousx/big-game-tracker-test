@@ -380,13 +380,14 @@
  {
   "league": "Premier League",
   "round": 22,
-  "date": "2027-01-23",
-  "time": "15:00",
+  "date": "2027-01-24",
+  "time": "16:30",
   "venue": "Old Trafford",
   "home": "Man Utd",
   "away": "Liverpool",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Ligue 1",
@@ -415,13 +416,14 @@
  {
   "league": "Premier League",
   "round": 23,
-  "date": "2027-01-30",
-  "time": "15:00",
+  "date": "2027-01-31",
+  "time": "16:30",
   "venue": "Etihad Stadium",
   "home": "Man City",
   "away": "Arsenal",
   "result": null,
-  "confirmed_time": true
+  "confirmed_time": true,
+  "time_is_utc": true
  },
  {
   "league": "Premier League",
